@@ -1,4 +1,4 @@
-/.yarn/**            linguist-vendored
-/.yarn/releases/*    binary
-/.yarn/plugins/**/*  binary
-/.pnp.*              binary linguist-generated
+*.tsx text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.svg text eol=lf
