@@ -1,5 +1,5 @@
-/// <reference types="@astral/ui/declarations" />
 /// <reference types="vite-plugin-svgr/client" />
+/// <reference types="vite-plugin-pwa/react" />
 
 declare module '*.woff' {
   const src: string;
@@ -8,6 +8,12 @@ declare module '*.woff' {
 }
 
 declare module '*.woff2' {
+  const src: string;
+
+  export default src;
+}
+
+declare module '*.ttf' {
   const src: string;
 
   export default src;
@@ -33,6 +39,14 @@ declare module '*.gif' {
   const content: string;
   export default content;
 }
+declare module '*.css' {
+  const content: Record<string, string>;
+  export default content;
+}
+declare module '*.ico' {
+  const content: string;
+  export default content;
+}
 
 declare module '*.svg' {
   import React = require('react');
@@ -42,4 +56,17 @@ declare module '*.svg' {
   const src: string;
 
   export default src;
+}
+
+declare module 'virtual:pwa-register/react' {
+  import type { Dispatch, SetStateAction } from 'react';
+  import type { RegisterSWOptions } from 'vite-plugin-pwa/types';
+
+  export type { RegisterSWOptions };
+
+  export function useRegisterSW(options?: RegisterSWOptions): {
+    needRefresh: [boolean, Dispatch<SetStateAction<boolean>>];
+    offlineReady: [boolean, Dispatch<SetStateAction<boolean>>];
+    updateServiceWorker: (reloadPage?: boolean) => Promise<void>;
+  };
 }

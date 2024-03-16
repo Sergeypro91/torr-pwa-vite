@@ -1,0 +1,65 @@
+:root {
+  /* COLORS */
+
+  /** Grayscale **/
+  --black: #000000;
+  --gray90: #1a1a1a;
+  --gray80: #333333;
+  --gray70: #4d4d4d;
+  --gray60: #676767;
+  --gray50: #808080;
+  --gray40: #999999;
+  --gray30: #b2b2b2;
+  --gray20: #cccccc;
+  --gray10: #e5e5e5;
+  --white: #ffffff;
+    --main: black;
+
+  /** Accent **/
+  --primary: #ffffff;
+  --positive: #42af40;
+  --warning: #bd5f09;
+  --error: #bd0909;
+  --silver: #c0c0c0;
+  --focus: #2c77ff;
+
+  /* Indent */
+  --module: 4px;
+  --indent-ss: calc(var(--module) / 2);
+  --indent-s: var(--module);
+  --indent-xs: calc(var(--module) * 2);
+  --indent-sm: calc(var(--module) * 3);
+  --indent-m: calc(var(--module) * 4);
+  --indent-xm: calc(var(--module) * 5);
+  --indent-sl: calc(var(--module) * 6);
+  --indent-l: calc(var(--module) * 7);
+  --indent-xl: calc(var(--module) * 8);
+
+  /* FONTS */
+  --default-size: 16;
+
+  /* LAYOUTS */
+  --aside-min-width: 80px;
+  --aside-max-width: 200px;
+
+  /* TRANSITION */
+  --transition: all 300ms;
+
+  /* ANIMATION */
+  --skeleton-animation: 2s ease-in-out 0.5s infinite normal none running
+    skeleton;
+}
+
+@keyframes skeleton {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

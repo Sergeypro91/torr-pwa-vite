@@ -2,17 +2,16 @@
   "name": "torr-pwa-vite",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "tsc && vite build",
+    "dev": "vite --host",
+    "build": "tsc && vite build --emptyOutDir",
     "lint": "eslint --fix --quiet",
     "lint:types": "tsc --noEmit",
     "lint:all": "eslint \"**/*.{ts,tsx}\" --fix --quiet",
-    "preview": "vite preview",
-    "prepare": "husky install"
+    "preview": "vite preview --host"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.20.0",
     "@types/node": "^20.11.25",
     "@vitejs/plugin-legacy": "5.2.0",
     "@vitejs/plugin-react": "^4.2.1",
@@ -25,6 +24,8 @@
     "vite-tsconfig-paths": "^4.3.1"
   },
   "devDependencies": {
+    "@tanstack/router-devtools": "^1.20.0",
+    "@tanstack/router-vite-plugin": "^1.20.0",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
@@ -36,7 +37,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "prettier": "^3.2.5",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vite-plugin-pwa": "^0.19.2",
+    "workbox-window": "^7.0.0"
   },
   "packageManager": "yarn@4.1.1"
 }

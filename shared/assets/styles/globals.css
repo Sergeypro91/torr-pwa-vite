@@ -1,0 +1,116 @@
+@import url('fonts.css');
+@import url('reset.css');
+@import url('variables.css');
+
+:root {
+  font-family: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--gray10);
+  background-color: var(--black);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  color: var(--white);
+
+  font-size: var(--default-size) rem;
+}
+
+body,
+#root {
+  height: 100dvh;
+}
+
+h1 {
+  transition: var(--transition);
+
+  font-size: calc(76 / var(--default-size) * 1rem);
+  font-weight: 500;
+  line-height: calc(92 / var(--default-size) * 1rem);
+}
+
+h2 {
+  transition: var(--transition);
+
+  font-size: calc(47 / var(--default-size) * 1rem);
+  font-weight: 500;
+  line-height: calc(69 / var(--default-size) * 1rem);
+}
+
+h3 {
+  transition: var(--transition);
+
+  font-size: calc(29 / var(--default-size) * 1rem);
+  font-weight: 500;
+  line-height: calc(35 / var(--default-size) * 1rem);
+}
+
+h4 {
+  transition: var(--transition);
+
+  font-size: calc(18 / var(--default-size) * 1rem);
+  font-weight: 500;
+  line-height: calc(23 / var(--default-size) * 1rem);
+}
+
+p {
+  transition: var(--transition);
+
+  font-size: calc(14 / var(--default-size) * 1rem);
+  font-weight: 500;
+  line-height: calc(17 / var(--default-size) * 1rem);
+}
+
+small {
+  transition: var(--transition);
+
+  font-size: calc(12 / var(--default-size) * 1rem);
+  font-weight: 500;
+  line-height: calc(15 / var(--default-size) * 1rem);
+}
+
+a {
+  border-radius: var(--indent-xs);
+  box-shadow: 0 0 0 2px transparent;
+
+  &:focus-visible {
+    box-shadow: 0 0 2px 2px var(--focus);
+  }
+}
+
+/* AUTO DETECT USER COLOR SCHEMA */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: var(--gray80);
+    background-color: var(--white);
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.wrapper {
+  display: flex;
+  overflow-x: hidden;
+  flex-direction: column;
+
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: 0 0 var(--aside-min-width) 0;
+  transition: var(--transition);
+  border-radius: var(--indent-m) var(--indent-m) 0;
+
+  @media screen and (1400px < width) {
+    padding: var(--aside-min-width) 0 0 0;
+  }
+}
