@@ -8,7 +8,7 @@ export const Home = () => {
   const [count, setCount] = useState(0);
 
   return (
-    <>
+    <div style={{ height: '2000px' }}>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <Vite className="logo" />
@@ -30,6 +30,6 @@ export const Home = () => {
         Click on the Vite and React logos to learn more
       </p>
       <ReloadPrompt />
-    </>
+    </div>
   );
 };

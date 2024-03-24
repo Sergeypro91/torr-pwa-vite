@@ -24,14 +24,16 @@ const routerOptions: Parameters<typeof TanStackRouterVite>[0] = {
   routesDirectory: './routes',
   generatedRouteTree: './shared/services/RouterService/routeTree.gen.ts',
 };
+// Svgr config
+const svgrOptions = { svgrOptions: { icon: true } };
 
 export default defineConfig({
   plugins: [
-    splitVendorChunkPlugin(),
     react(),
-    svgrPlugin({ svgrOptions: { icon: true } }),
     tsconfigPaths(),
+    splitVendorChunkPlugin(),
     VitePWA(pwaOptions),
+    svgrPlugin(svgrOptions),
     TanStackRouterVite(routerOptions),
   ],
 	assetsInclude: ['**/*.ttf'],

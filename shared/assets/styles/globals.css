@@ -19,13 +19,7 @@
 
 html {
   color: var(--white);
-
   font-size: var(--default-size) rem;
-}
-
-body,
-#root {
-  height: 100dvh;
 }
 
 h1 {

@@ -35,12 +35,37 @@
   --indent-l: calc(var(--module) * 7);
   --indent-xl: calc(var(--module) * 8);
 
+  /* BREAK POINTS */
+  --mobile-s: 320px;
+  --mobile-m: 375px;
+  --mobile-l: 425px;
+  --tablet: 768px;
+  --laptop: 1024px;
+  --laptop-l: 1440px;
+
   /* FONTS */
   --default-size: 16;
+  /* h1 */
+  --h1-fs: calc(4.75rem);
+  --h1-lh: calc(5.75rem);
+  /* h2 */
+  --h2-fs: calc(2.9375rem);
+  --h2-lh: calc(4.3125rem);
+  /* h3 */
+  --h3-fs: calc(1.8125rem);
+  --h3-lh: calc(2.1875rem);
+  /* h4 */
+  --h4-fs: calc(1.125rem);
+  --h4-lh: calc(1.4375rem);
+  /* h5 */
+  --h5-fs: calc(0.875rem);
+  --h5-lh: calc(1.0625rem);
+  /* h6 */
+  --h6-fs: calc(0.75rem);
+  --h6-lh: calc(0.9375rem);
 
   /* LAYOUTS */
-  --aside-min-width: 80px;
-  --aside-max-width: 200px;
+  --footer-h: 80px;
 
   /* TRANSITION */
   --transition: all 300ms;
