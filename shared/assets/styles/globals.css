@@ -92,19 +92,3 @@ a {
     background-color: #f9f9f9;
   }
 }
-
-.wrapper {
-  display: flex;
-  overflow-x: hidden;
-  flex-direction: column;
-
-  min-height: 100vh;
-  max-height: 100vh;
-  padding: 0 0 var(--aside-min-width) 0;
-  transition: var(--transition);
-  border-radius: var(--indent-m) var(--indent-m) 0;
-
-  @media screen and (1400px < width) {
-    padding: var(--aside-min-width) 0 0 0;
-  }
-}
