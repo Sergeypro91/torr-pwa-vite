@@ -16,10 +16,6 @@
       width: 24px;
       height: 24px;
       transition: var(--transition);
-
-      &>* {
-        fill: currentColor;
-      }
     }
   }
 

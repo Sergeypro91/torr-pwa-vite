@@ -1,0 +1,8 @@
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+#with-padding {
+  padding-top: calc(var(--safe-top) + var(--header-h));
+}

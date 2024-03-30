@@ -5,10 +5,15 @@ import { useLogic } from './useLogick';
 import style from './styles.module.css';
 
 export const Footer = () => {
-  const { isScrollDirUp } = useLogic();
+  const { isScrollDirUp, isHover, handleHover } = useLogic();
 
   return (
-    <footer id={isScrollDirUp ? style.hidden : ''} className={style.footer}>
+    <footer
+      id={isScrollDirUp && !isHover ? style.hidden : ''}
+      className={style.footer}
+      onPointerOver={() => handleHover(true)}
+      onPointerLeave={() => handleHover(false)}
+    >
       {MENU_ROUTES.map((menuRoute) => (
         <MenuLink
           key={menuRoute.path}

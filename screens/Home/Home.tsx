@@ -9,6 +9,14 @@ export const Home = () => {
 
   return (
     <div style={{ height: '2000px' }}>
+      <img
+        src="https://pbs.twimg.com/media/FulTuXYWcBM1qlq.jpg:large"
+        alt=""
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
+      />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <Vite className="logo" />

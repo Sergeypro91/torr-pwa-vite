@@ -1,29 +1,35 @@
-import { Download, File, Home, Profile, Search } from '@torr/shared';
+import {
+  FilmIcon,
+  FolderArrowDownIcon,
+  HomeIcon,
+  MagnifyingGlassIcon,
+  UserCircleIcon,
+} from '@torr/shared';
 
 export const MENU_ROUTES = [
   {
     name: 'Home',
     path: '/',
-    icon: <Home />,
+    icon: <HomeIcon />,
   },
   {
     name: 'Search',
     path: '/search',
-    icon: <Search />,
+    icon: <MagnifyingGlassIcon />,
   },
   {
     name: 'Files',
     path: '/files',
-    icon: <File />,
+    icon: <FilmIcon />,
   },
   {
     name: 'Downloads',
     path: '/downloads',
-    icon: <Download />,
+    icon: <FolderArrowDownIcon />,
   },
   {
     name: 'Profile',
     path: '/profile',
-    icon: <Profile />,
+    icon: <UserCircleIcon />,
   },
 ];

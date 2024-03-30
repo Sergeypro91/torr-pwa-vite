@@ -1,15 +1,16 @@
 .footer {
   width: 100%;
-  height: var(--footer-h);
   position: fixed;
   bottom: 0;
   left: 0;
   display: flex;
   justify-content: space-between;
-  padding: calc(var(--module) * 2) calc(var(--module) * 4);
+  padding-block: calc(var(--module) * 2);
+  padding-inline: clamp(var(--safe-right), var(--module) * 4, 100%);
   gap: calc(var(--module) * 2);
   background-color: color-mix(in srgb, var(--gray90) 80%, transparent);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: var(--transition);
 }
 
@@ -17,24 +18,30 @@
   bottom: calc(var(--footer-h) * -1);
 }
 
-/* Vertical mobile */
+/* Portrait mobile */
 @media screen and (width <= 430px) and (orientation: portrait) {
   .footer {
+    min-height: var(--footer-h);
+    padding-bottom: var(--safe-bottom);
+
     & > * {
       width: 100%;
     }
   }
+
+  #hidden {
+    bottom: calc((var(--footer-h) + var(--safe-bottom)) * -1);
+  }
 }
 
-/* Horizontal mobile */
+/* Landscape mobile */
 @media screen and (width <= 932px) and (orientation: landscape) {
   .footer {
     height: fit-content;
     top: 0;
     left: 0;
-    padding: calc(var(--module) * 2) env(safe-area-inset-right, calc(var(--module) * 2));
 
-    &>* {
+    & > * {
       padding: var(--module) calc(var(--module) * 2);
     }
   }
@@ -44,35 +51,62 @@
   }
 }
 
-/* Vertical tablet */
+/* Portrait tablet */
 @media screen and (430px < width <= 1024px) and (orientation: portrait) {
   .footer {
-    &>* {
+    padding-bottom: clamp(var(--safe-bottom), var(--module) * 2, 100%);
+
+    & > * {
       padding: calc(var(--module) * 2);
     }
   }
+
+  #hidden {
+    bottom: calc((var(--footer-h) + var(--safe-bottom)) * -1);
+  }
 }
 
-/* Horizontal tablet */
+/* Landscape tablet */
 @media screen and (932px < width <= 1366px) and (orientation: landscape) {
   .footer {
-    &>* {
+    padding-bottom: clamp(
+      var(--safe-bottom),
+      var(--module) * 2,
+      100%
+    );
+
+    & > * {
       padding: calc(var(--module) * 2);
     }
+  }
+
+  #hidden {
+    bottom: calc((var(--footer-h) + var(--safe-bottom)) * -1);
   }
 }
 
 /* Desktop */
 @media screen and (width > 1366px) and (orientation: landscape) {
   .footer {
+    max-height: fit-content;
     top: 0;
     left: 0;
     align-items: center;
     justify-content: center;
+    padding-block: calc(var(--module) * 4);
     gap: calc(var(--module) * 5);
+
+    & > * {
+      opacity: 1;
+      transition: var(--transition);
+    }
   }
 
   #hidden {
-    top: calc(var(--footer-h) * -1);
+    padding-block: calc(var(--module) * 2);
+
+    & > * {
+      opacity: 0.5;
+    }
   }
 }
