@@ -1,6 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import { ReactLogo, ReloadPrompt, Vite } from '@torr/shared';
+import {
+  Button,
+  ChevronLeftIcon,
+  ReactLogo,
+  ReloadPrompt,
+  Vite,
+} from '@torr/shared';
 
 import './Home.css';
 
@@ -38,6 +44,17 @@ export const Home = () => {
         Click on the Vite and React logos to learn more
       </p>
       <ReloadPrompt />
+
+      <Button
+        fullWidth
+        // active
+        color="success"
+        size="large"
+        variant="contained"
+        iconStart={<ChevronLeftIcon />}
+      >
+        Restore
+      </Button>
     </div>
   );
 };

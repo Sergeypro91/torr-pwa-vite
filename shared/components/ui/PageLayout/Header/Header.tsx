@@ -1,6 +1,11 @@
 import React, { CSSProperties, useContext } from 'react';
 
-import { ChevronLeftIcon, EllipsisHorizontalIcon } from '@torr/shared';
+import {
+  Button,
+  ChevronLeftIcon,
+  EllipsisHorizontalIcon,
+  cn,
+} from '@torr/shared';
 
 import { PageLayoutContext } from '../PageLayout.tsx';
 
@@ -15,24 +20,23 @@ type HeaderType = {
 export const Header = (props: HeaderType) => {
   const { title = '', actions, backButton = false } = props;
   const { scrollCoefficient } = useContext(PageLayoutContext);
-  const headerId = scrollCoefficient <= 50 ? style.compressed : '';
   const headerStyle = {
-    '--coefficient': scrollCoefficient,
+    '--local-coefficient': scrollCoefficient,
   } as CSSProperties;
 
   return (
-    <div id={headerId} className={style.header} style={headerStyle}>
+    <div
+      className={cn([
+        style.header,
+        scrollCoefficient <= 50 && style.compressed,
+      ])}
+      style={headerStyle}
+    >
       <div className={style.wrapper}>
-        {backButton ? (
-          <button>
-            <ChevronLeftIcon />
-          </button>
-        ) : null}
+        {backButton ? <Button iconStart={<ChevronLeftIcon />} /> : null}
         <div className={style.title}>{title}</div>
         {actions ? (
-          <button>
-            <EllipsisHorizontalIcon />
-          </button>
+          <Button variant="contained" iconStart={<EllipsisHorizontalIcon />} />
         ) : null}
       </div>
     </div>

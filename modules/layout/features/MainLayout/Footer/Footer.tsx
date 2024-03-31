@@ -1,4 +1,4 @@
-import { MenuLink } from '@torr/shared';
+import { MenuLink, cn } from '@torr/shared';
 
 import { MENU_ROUTES } from './constants.tsx';
 import { useLogic } from './useLogick';
@@ -9,8 +9,7 @@ export const Footer = () => {
 
   return (
     <footer
-      id={isScrollDirUp && !isHover ? style.hidden : ''}
-      className={style.footer}
+      className={cn([style.footer, isScrollDirUp && !isHover && style.hidden])}
       onPointerOver={() => handleHover(true)}
       onPointerLeave={() => handleHover(false)}
     >

@@ -1,9 +1,8 @@
 import { PropsWithChildren, createContext, useMemo } from 'react';
 
-import { useLogic } from '@torr/shared/components/PageLayout/useLogic';
-
 import { Content } from './Content';
 import { Header } from './Header';
+import { useLogic } from './useLogic';
 import style from './styles.module.css';
 
 type PageLayoutContextType = {

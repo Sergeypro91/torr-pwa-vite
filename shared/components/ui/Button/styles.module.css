@@ -1,0 +1,214 @@
+.button-wrapper {
+  /* global variable */
+  --local-color: var(--primary);
+  --local-white: var(--white);
+  --local-black: var(--black);
+  --local-module: var(--module);
+  --local-transition: var(--transition);
+  --local-h6-fs: var(--h6-fs);
+  --local-h6-lh: var(--h6-lh);
+  --local-h4-fs: var(--h4-fs);
+  --local-h3-fs: var(--h3-fs);
+
+  /* local variable */
+  --box-shadow: 2px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2px;
+  border-radius: calc(var(--local-module) * 2 + var(--box-shadow));
+  overflow: hidden;
+
+  &:focus-visible {
+    &>.button-base {
+      box-shadow: 0 0 0 var(--box-shadow) var(--local-color);
+    }
+  }
+}
+
+.button-base {
+  transition: var(--local-transition);
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: calc(var(--local-module) * 2);
+
+  &.button-text {
+    color: color-mix(in srgb, var(--local-color) 80%, transparent);
+
+    @media (hover: hover) {
+      &:hover, &:focus-visible {
+        color: var(--local-color);
+        background-color: color-mix(in srgb, var(--local-color) 20%, transparent);
+      }
+    }
+  }
+
+  &.button-outlined {
+    color: color-mix(in srgb, var(--local-color) 80%, transparent);
+    border-color: color-mix(in srgb, var(--local-color) 20%, transparent);
+
+    @media (hover: hover) {
+      &:hover, &:focus-visible {
+        color: var(--local-color);
+        border-color: var(--local-color);
+        background-color: color-mix(in srgb, var(--local-color) 20%, transparent);
+      }
+    }
+  }
+
+  &.button-contained {
+    color: var(--local-color);
+    background-color: color-mix(in srgb, var(--local-color) 20%, transparent);
+
+    @media (hover: hover) {
+      &:hover, &:focus-visible {
+        color: var(--local-black);
+        border-color: color-mix(in srgb, var(--local-color) 80%, transparent);
+        background-color: color-mix(in srgb, var(--local-color) 90%, transparent);
+      }
+
+      & + .ripple {
+        filter: brightness(0.5);
+      }
+    }
+  }
+}
+
+.button-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SIZE */
+.button-small {
+  padding: calc(var(--local-module) / 2);
+  font-size: var(--local-h6-fs);
+  line-height: var(--local-h6-lh);
+  font-weight: 500;
+
+  .button-inner {
+    gap: calc(var(--local-module) / 2);
+  }
+
+  svg {
+    width: calc(var(--local-module) * 4);
+  }
+}
+
+.button-medium {
+  padding: var(--local-module);
+  font-size: var(--local-h4-fs);
+  line-height: normal;
+  font-weight: 700;
+
+  .button-inner {
+    gap: var(--local-module);
+  }
+
+  svg {
+    width: calc(var(--local-module) * 6);
+  }
+}
+
+.button-large {
+  padding: calc(var(--local-module) * 3);
+  font-size: var(--local-h4-fs);
+  line-height: normal;
+  font-weight: 700;
+
+  .button-inner {
+    gap: calc(var(--local-module) * 3);
+  }
+
+  svg {
+    width: calc(var(--local-module) * 6);
+  }
+}
+
+/* ACTIVE */
+.button-active {
+  color: var(--local-color);
+
+  &.button-text {
+    background-color: color-mix(in srgb, var(--local-color) 20%, transparent);
+
+    @media (hover: hover) {
+      &:hover, &:focus-visible {
+        background-color: color-mix(in srgb, var(--local-color) 40%, transparent);
+      }
+    }
+  }
+
+  &.button-outlined {}
+
+  &.button-contained {
+    color: var(--local-black);
+    background-color: var(--local-color);
+  }
+}
+
+/* WITH TEXT */
+.button-with-text {
+  &.button-medium,
+  &.button-large {
+    padding-inline: calc(var(--local-module) * 4);
+  }
+}
+
+/* FULL WIDTH */
+.button-full-width {
+  width: 100%;
+  justify-content: center;
+}
+
+/* RIPPLE */
+.ripple {
+  aspect-ratio: 1;
+  position: absolute;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--local-color) 25%, transparent);
+  pointer-events: none;
+
+  &.ripple-triggered {
+    animation: ripple 600ms linear;
+  }
+}
+
+.scale {
+  &>* {
+    transform-origin: center center;
+    animation: scale 300ms linear;
+  }
+}
+
+/* ANIMATIONS */
+@keyframes ripple {
+  0% {
+    width: 0;
+    transform: scale3d(0,0,0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    transform: scale3d(4,4,4);
+    opacity: 0;
+  }
+}
+
+@keyframes scale {
+  0% {
+      transform: scale3d(1,1,1);
+  }
+  50% {
+      transform: scale3d(0.9,0.9,0.9);
+  }
+  100% {
+      transform: scale3d(1,1,1);
+  }
+}

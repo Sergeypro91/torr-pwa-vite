@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from '../external.ts';
+import { Link } from '../../external.ts';
 
 import style from './styles.module.css';
 

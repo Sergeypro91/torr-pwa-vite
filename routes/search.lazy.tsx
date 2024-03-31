@@ -1,13 +1,17 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 
+import { PageLayout } from '@torr/shared';
+import { Search as SearchScreen } from '@torr/screens';
+
 export const Route = createLazyFileRoute('/search')({
   component: Search,
 });
 
 function Search() {
   return (
-    <div>
-      <h3>SEARCH</h3>
-    </div>
+    <PageLayout withTopPadding>
+      <PageLayout.Header backButton title="Search" />
+      <SearchScreen />
+    </PageLayout>
   );
 }
