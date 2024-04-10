@@ -7,17 +7,20 @@
     "build": "tsc && vite build --emptyOutDir",
     "lint": "eslint --fix --quiet",
     "lint:types": "tsc --noEmit",
-    "lint:all": "eslint \"**/*.{ts,tsx}\" --fix --quiet",
-    "preview": "vite preview --host"
+    "lint:all": "npm run lint && npm run lint:types",
+    "preview": "vite preview --host",
+    "build_api_client": "export $(cat .env | xargs) && npx openapi-typescript $BASE_API_PROTOCOL://$BASE_API_URL:$BASE_API_PORT/$BASE_API_ROUTE --output $API_DOC_PATH"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.3",
+    "@tanstack/react-query": "^5.29.0",
+    "@tanstack/react-query-devtools": "^5.29.0",
     "@tanstack/react-router": "^1.20.0",
     "@types/node": "^20.11.25",
     "@vitejs/plugin-legacy": "5.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitejs/plugin-react-swc": "3.5.0",
-    "dotenv": "^16.4.5",
+    "embla-carousel-react": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite": "^5.1.5",
@@ -26,22 +29,24 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.28.11",
     "@tanstack/router-devtools": "^1.20.0",
     "@tanstack/router-vite-plugin": "^1.20.0",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
+    "dotenv": "^16.4.5",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "openapi-typescript-fetch": "^2.0.0",
     "prettier": "^3.2.5",
     "typescript": "^5.2.2",
     "vite-plugin-pwa": "^0.19.2",
     "workbox-window": "^7.0.0"
-  },
-  "packageManager": "yarn@4.1.1"
+  }
 }

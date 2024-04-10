@@ -1,0 +1,13 @@
+.picture-card {
+  --local-transition: 0%;
+
+  overflow: hidden;
+}
+
+.poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  aspect-ratio: 2/3;
+  transform: translate3d(var(--local-transition),0,0);
+}

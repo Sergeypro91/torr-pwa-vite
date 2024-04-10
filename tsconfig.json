@@ -26,6 +26,9 @@
     },
     "allowJs": true
   },
-  "include": ["global.d.ts", "**/*.ts", "**/*.tsx", "./*.js"],
+  "include": ["global.d.ts", "vite-env.d.ts", "**/*.ts", "**/*.tsx", "./*.js"],
+  "exclude": [
+    "node_modules"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

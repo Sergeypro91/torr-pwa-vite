@@ -9,7 +9,7 @@ export const Route = createFileRoute('/')({
 
 function Index() {
   return (
-    <PageLayout withTopPadding>
+    <PageLayout>
       <PageLayout.Header backButton title="Main" actions={<div>test</div>} />
       <Home />
     </PageLayout>

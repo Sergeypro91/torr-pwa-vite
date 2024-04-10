@@ -1,0 +1,27 @@
+.slider-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.slider {
+  position: relative;
+  display: flex;
+  overflow: scroll;
+  scroll-snap-type: x mandatory;
+}
+
+.slide {
+  --local-transitionX: 0px;
+
+  aspect-ratio: 1;
+  min-width: 100vw;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  border: 1px solid white;
+  overflow: hidden;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}

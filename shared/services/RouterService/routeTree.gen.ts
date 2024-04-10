@@ -14,6 +14,9 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './../../../routes/__root'
 import { Route as IndexImport } from './../../../routes/index'
+import { Route as ShowShowIdImport } from './../../../routes/show/$showId'
+import { Route as PersonPersonIdImport } from './../../../routes/person/$personId'
+import { Route as MovieMovieIdImport } from './../../../routes/movie/$movieId'
 
 // Create Virtual Routes
 
@@ -57,6 +60,21 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ShowShowIdRoute = ShowShowIdImport.update({
+  path: '/show/$showId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PersonPersonIdRoute = PersonPersonIdImport.update({
+  path: '/person/$personId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MovieMovieIdRoute = MovieMovieIdImport.update({
+  path: '/movie/$movieId',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -81,6 +99,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchLazyImport
       parentRoute: typeof rootRoute
     }
+    '/movie/$movieId': {
+      preLoaderRoute: typeof MovieMovieIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/person/$personId': {
+      preLoaderRoute: typeof PersonPersonIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/show/$showId': {
+      preLoaderRoute: typeof ShowShowIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -92,6 +122,9 @@ export const routeTree = rootRoute.addChildren([
   FilesLazyRoute,
   ProfileLazyRoute,
   SearchLazyRoute,
+  MovieMovieIdRoute,
+  PersonPersonIdRoute,
+  ShowShowIdRoute,
 ])
 
 /* prettier-ignore-end */

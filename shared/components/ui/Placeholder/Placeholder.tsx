@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import classes from './styles.module.css';
+import style from './styles.module.css';
 
 export type PlaceholderProps = {
   imgSrc?: string;
@@ -22,11 +22,11 @@ export const Placeholder = ({
   Actions,
 }: PlaceholderProps) => {
   return (
-    <div className={classes.wrapper}>
-      <div className={classes.innerContainer}>
+    <div className={style.wrapper}>
+      <div className={style.innerContainer}>
         {imgSrc && (
           <img
-            className={classes.image}
+            className={style.image}
             src={imgSrc}
             alt={imgAlt}
             width={imgWidth}
@@ -34,13 +34,11 @@ export const Placeholder = ({
           />
         )}
 
-        <div className={classes.title}>{title}</div>
-        {description && (
-          <div className={classes.description}>{description}</div>
-        )}
+        <div className={style.title}>{title}</div>
+        {description && <div className={style.description}>{description}</div>}
       </div>
 
-      {Actions && <div className={classes.footer}>{Actions}</div>}
+      {Actions && <div className={style.footer}>{Actions}</div>}
     </div>
   );
 };

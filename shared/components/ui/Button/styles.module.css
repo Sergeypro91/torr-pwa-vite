@@ -26,6 +26,15 @@
       box-shadow: 0 0 0 var(--box-shadow) var(--local-color);
     }
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &>.button-base {
+      pointer-events: none;
+    }
+  }
 }
 
 .button-base {
@@ -178,10 +187,8 @@
 }
 
 .scale {
-  &>* {
-    transform-origin: center center;
-    animation: scale 300ms linear;
-  }
+  transform-origin: center center;
+  animation: scale 300ms linear;
 }
 
 /* ANIMATIONS */

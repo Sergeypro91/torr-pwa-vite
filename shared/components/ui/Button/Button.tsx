@@ -53,11 +53,12 @@ export const Button = forwardRef<ElementRef<'button'>, TButton>(
             style[`button-${variant}`],
             active && style['button-active'],
             children && style['button-with-text'],
-            isTrigger && style.scale,
             fullWidth && style['button-full-width'],
           ])}
         >
-          <span className={style['button-inner']}>
+          <span
+            className={cn([style['button-inner'], isTrigger && style.scale])}
+          >
             {IconStart}
             {children}
             {IconEnd}
