@@ -1,17 +1,16 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import { useLogic } from './useLogic';
 import './styles.css';
 import style from './styles.module.css';
 
-export type TSlider<TSlide> = {
+export type TSlider<TSlide extends unknown = unknown> = {
   slides: TSlide[];
+  renderItem: (slide: TSlide) => React.JSX.Element;
 };
 
-const imageUrl =
-  'https://media.istockphoto.com/id/806894546/de/vektor/schachbrettmuster-schwarz-wei%C3%9F.jpg?s=1024x1024&w=is&k=20&c=uKnSDOIsR89g5IxgaYNRUD0XPBuKwJXMmhEmYMLSFG0=';
-
-export const Slider = <TSlide extends ReactNode>(props: TSlider<TSlide>) => {
+export const Slider = <TSlide extends unknown>(props: TSlider<TSlide>) => {
+  const { renderItem } = props;
   const { sliderRef, extendedSlides, sliderSlidesRef, handleScroll } =
     useLogic(props);
 
@@ -29,8 +28,7 @@ export const Slider = <TSlide extends ReactNode>(props: TSlider<TSlide>) => {
             id="slider"
             className={style.slide}
           >
-            <img src={imageUrl} alt="checker" id="background" />
-            {slide}
+            {renderItem(slide)}
           </article>
         ))}
       </section>

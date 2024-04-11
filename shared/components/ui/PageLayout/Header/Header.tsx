@@ -25,20 +25,26 @@ export const Header = (props: HeaderType) => {
   } as CSSProperties;
 
   return (
-    <div
+    <header
       className={cn([
         style.header,
         scrollCoefficient <= 50 && style.compressed,
       ])}
       style={headerStyle}
     >
-      <div className={style.wrapper}>
+      <section className={style.wrapper}>
         {backButton ? <Button iconStart={<ChevronLeftIcon />} /> : null}
-        <div className={style.title}>{title}</div>
+        <div className={style.extras}>
+          <div className={style.title}>{title}</div>
+        </div>
         {actions ? (
-          <Button variant="contained" iconStart={<EllipsisHorizontalIcon />} />
+          <Button
+            size={scrollCoefficient <= 50 ? 'small' : 'medium'}
+            variant="contained"
+            iconStart={<EllipsisHorizontalIcon />}
+          />
         ) : null}
-      </div>
-    </div>
+      </section>
+    </header>
   );
 };

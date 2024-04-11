@@ -1,21 +1,26 @@
 import { PointerEvent, useEffect, useRef, useState } from 'react';
 
 import { TSlider } from '../Slider.tsx';
-import { scrollMonitoring, transitionMonitoring } from '../utils';
+import { useScrollMonitoring, useTransitionMonitoring } from '../hooks';
 
 export const useLogic = <TSlide>(props: TSlider<TSlide>) => {
   const { slides } = props;
-  const [scrollTicking, setScrollTicking] = useState(false);
-  const [transitionTicking, setTransitionTicking] = useState(false);
   const [startLeftPosition, setStartLeftPosition] = useState(0);
   const [currLeftPosition, setCurrLeftPosition] = useState(0);
-  const [appearingSlideId, setAppearingSlideId] = useState<number>(1);
-  const [disappearingSlideId, setDisappearingSlideId] = useState<number>(2);
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const sliderSlidesRef = useRef<(HTMLElement | null)[]>([]);
   const extendedSlides = slides
     .toSpliced(0, 0, slides[slides.length - 1])
     .toSpliced(-1, 1, slides[slides.length - 1], slides[0]);
+
+  const { scrollMonitoring } = useScrollMonitoring();
+
+  const { appearingSlideId, disappearingSlideId, transitionMonitoring } =
+    useTransitionMonitoring({
+      startLeftPosition,
+      currLeftPosition,
+      sliderSlidesRef,
+    });
 
   const handleScroll = (event: PointerEvent<HTMLElement>) => {
     const sliderElem = event.currentTarget;
@@ -24,35 +29,8 @@ export const useLogic = <TSlide>(props: TSlider<TSlide>) => {
       const leftPosition = sliderElem.scrollLeft;
       const { width } = sliderElem.getBoundingClientRect();
 
-      if (!scrollTicking) {
-        window.requestAnimationFrame(() => {
-          sliderElem.style.scrollSnapType = '';
-
-          scrollMonitoring({
-            sliderElem,
-            setScrollTicking,
-          });
-        });
-
-        setScrollTicking(true);
-      }
-
-      if (!transitionTicking) {
-        window.requestAnimationFrame(() => {
-          transitionMonitoring({
-            sliderElem,
-            currLeftPosition,
-            startLeftPosition,
-            sliderSlidesRef,
-            setAppearingSlideId,
-            setDisappearingSlideId,
-            setTransitionTicking,
-          });
-        });
-
-        setTransitionTicking(true);
-      }
-
+      scrollMonitoring(sliderElem);
+      transitionMonitoring(sliderElem);
       setCurrLeftPosition(leftPosition);
       setStartLeftPosition(Math.round(leftPosition / width) * width);
     }

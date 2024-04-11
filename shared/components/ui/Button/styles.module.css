@@ -13,6 +13,7 @@
   /* local variable */
   --box-shadow: 2px;
 
+  width: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,7 +94,6 @@
 
 /* SIZE */
 .button-small {
-  padding: calc(var(--local-module) / 2);
   font-size: var(--local-h6-fs);
   line-height: var(--local-h6-lh);
   font-weight: 500;
@@ -103,7 +103,7 @@
   }
 
   svg {
-    width: calc(var(--local-module) * 4);
+    width: calc(var(--local-module) * 6);
   }
 }
 
