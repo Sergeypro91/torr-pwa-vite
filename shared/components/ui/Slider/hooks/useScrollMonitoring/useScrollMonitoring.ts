@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+/**
+ * @description Logic for looping slides
+ */
 export const useScrollMonitoring = () => {
   const [scrollTicking, setScrollTicking] = useState(false);
 

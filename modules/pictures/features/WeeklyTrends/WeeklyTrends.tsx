@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { Slider } from '@torr/shared';
-import { PictureCard } from '@torr/modules/pictures';
 import { MovieSlim, ShowSlim } from '@torr/data';
+
+import { PictureCard } from '../PictureCard';
 
 import { useLogic } from './useLogic';
 

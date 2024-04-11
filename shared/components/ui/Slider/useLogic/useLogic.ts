@@ -1,7 +1,11 @@
 import { PointerEvent, useEffect, useRef } from 'react';
 
 import { TSlider } from '../Slider.tsx';
-import { useScrollMonitoring, useTransitionMonitoring } from '../hooks';
+import {
+  useAutoScroll,
+  useScrollMonitoring,
+  useTransitionMonitoring,
+} from '../hooks';
 
 export const useLogic = <TSlide>(props: TSlider<TSlide>) => {
   const { slides } = props;
@@ -14,6 +18,11 @@ export const useLogic = <TSlide>(props: TSlider<TSlide>) => {
   const { scrollMonitoring } = useScrollMonitoring();
 
   const { leftSlideId, transitionMonitoring } = useTransitionMonitoring({
+    sliderSlidesRef,
+  });
+
+  useAutoScroll({
+    leftSlideId,
     sliderSlidesRef,
   });
 
@@ -32,7 +41,7 @@ export const useLogic = <TSlide>(props: TSlider<TSlide>) => {
     if (sliderElem) {
       sliderElem.children[leftSlideId].scrollIntoView();
     }
-  }, []);
+  }, [leftSlideId]);
 
   return {
     sliderRef,

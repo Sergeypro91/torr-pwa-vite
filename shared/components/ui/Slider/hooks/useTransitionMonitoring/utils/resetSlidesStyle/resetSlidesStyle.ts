@@ -1,6 +1,6 @@
 import { LEFT_START_VAR_PROP, POSTER_WIDTH_VAR_PROP } from '../../constants.ts';
 
-type TresetSlideStyle = {
+type TResetSlideStyle = {
   slides: (null | HTMLElement)[];
   specificSlideId: number;
 };
@@ -8,7 +8,7 @@ type TresetSlideStyle = {
 export const resetSlidesStyle = ({
   slides,
   specificSlideId,
-}: TresetSlideStyle) => {
+}: TResetSlideStyle) => {
   slides.forEach((slide, slideId) => {
     if (slide) {
       if (slideId !== specificSlideId) {

@@ -4,12 +4,12 @@ import { useLogic } from './useLogic';
 import './styles.css';
 import style from './styles.module.css';
 
-export type TSlider<TSlide extends unknown = unknown> = {
+export type TSlider<TSlide = unknown> = {
   slides: TSlide[];
   renderItem: (slide: TSlide) => React.JSX.Element;
 };
 
-export const Slider = <TSlide extends unknown>(props: TSlider<TSlide>) => {
+export const Slider = <TSlide,>(props: TSlider<TSlide>) => {
   const { renderItem } = props;
   const { sliderRef, extendedSlides, sliderSlidesRef, handleScroll } =
     useLogic(props);

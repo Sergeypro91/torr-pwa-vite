@@ -7,6 +7,9 @@ type TUseTransitionMonitoring = {
   sliderSlidesRef: MutableRefObject<(HTMLElement | null)[]>;
 };
 
+/**
+ * @description Logic that implements animating styles to transition between slides
+ */
 export const useTransitionMonitoring = (options: TUseTransitionMonitoring) => {
   const { sliderSlidesRef } = options;
   const [transitionTicking, setTransitionTicking] = useState(false);
