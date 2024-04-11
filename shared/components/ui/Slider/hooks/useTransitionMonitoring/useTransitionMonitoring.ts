@@ -1,49 +1,61 @@
-import { MutableRefObject, useState } from 'react';
+import { MutableRefObject, useEffect, useState } from 'react';
 
-import { disappearingTranslateX, setSlideTranslateX } from './utils';
+import { LEFT_START_VAR_PROP, POSTER_WIDTH_VAR_PROP } from './constants.ts';
+import { definePrevSlide, resetSlidesStyle, setSlideElemProp } from './utils';
 
 type TUseTransitionMonitoring = {
-  currLeftPosition: number;
-  startLeftPosition: number;
   sliderSlidesRef: MutableRefObject<(HTMLElement | null)[]>;
 };
 
-export const useTransitionMonitoring = (oprions: TUseTransitionMonitoring) => {
-  const { startLeftPosition, currLeftPosition, sliderSlidesRef } = oprions;
+export const useTransitionMonitoring = (options: TUseTransitionMonitoring) => {
+  const { sliderSlidesRef } = options;
   const [transitionTicking, setTransitionTicking] = useState(false);
-  const [appearingSlideId, setAppearingSlideId] = useState<number>(1);
-  const [disappearingSlideId, setDisappearingSlideId] = useState<number>(2);
+  const [prevSlideId, setPrevSlideId] = useState<undefined | number>(undefined);
+  const [leftSlideId, setLeftSlideId] = useState<number>(1);
+  const [rightSlideId, setRightSlideId] = useState<number>(2);
 
   const transitionMonitoring = (sliderElem: EventTarget & HTMLElement) => {
+    const { width: slideWidth } = sliderElem.getBoundingClientRect();
+    const currLeftPosition = sliderElem.scrollLeft;
+    const startLeftPosition =
+      Math.floor(currLeftPosition / slideWidth) * slideWidth;
+
     if (!transitionTicking) {
       window.requestAnimationFrame(() => {
-        // Define appearing/disappearing slide ID
-        const { width } = sliderElem.getBoundingClientRect();
-        const currAppearingSlideId = Math.round(currLeftPosition / width);
-        const currDisappearingSlideId =
+        // Define left/right/prev slide ID
+        const currLeftSlideId =
           startLeftPosition <= currLeftPosition
-            ? currAppearingSlideId + 1
-            : currAppearingSlideId - 1;
+            ? Math.floor(currLeftPosition / slideWidth)
+            : Math.ceil(currLeftPosition / slideWidth);
+        const currRightSlideId =
+          startLeftPosition <= currLeftPosition
+            ? currLeftSlideId + 1
+            : currLeftSlideId - 1;
 
-        setAppearingSlideId(currAppearingSlideId);
-        setDisappearingSlideId(currDisappearingSlideId);
+        setLeftSlideId(definePrevSlide(currLeftSlideId, setPrevSlideId));
+        setRightSlideId(currRightSlideId);
 
-        // Handling transition for appearing/disappearing slide element
-        const appearingSlideElem =
-          sliderSlidesRef.current[currAppearingSlideId];
-        const disappearingSlideElem =
-          sliderSlidesRef.current[currDisappearingSlideId];
+        // Handling transition left<->right slide element
+        const leftSlideElem = sliderSlidesRef.current[currLeftSlideId];
+        const rightSlideElem = sliderSlidesRef.current[currRightSlideId];
         const xShift = startLeftPosition - currLeftPosition;
-        const appearingTranslateX = -xShift / 2;
 
-        setSlideTranslateX({
-          slideElem: appearingSlideElem,
-          translateX: appearingTranslateX,
+        setSlideElemProp({
+          slideElem: leftSlideElem,
+          propName: POSTER_WIDTH_VAR_PROP,
+          propsValue: `${slideWidth + xShift}px`,
         });
 
-        setSlideTranslateX({
-          slideElem: disappearingSlideElem,
-          translateX: disappearingTranslateX({ shift: xShift, width }),
+        setSlideElemProp({
+          slideElem: rightSlideElem,
+          propName: POSTER_WIDTH_VAR_PROP,
+          propsValue: `${xShift * -1}px`,
+        });
+
+        setSlideElemProp({
+          slideElem: rightSlideElem,
+          propName: LEFT_START_VAR_PROP,
+          propsValue: `${slideWidth + xShift}px`,
         });
 
         setTransitionTicking(false);
@@ -53,5 +65,18 @@ export const useTransitionMonitoring = (oprions: TUseTransitionMonitoring) => {
     }
   };
 
-  return { appearingSlideId, disappearingSlideId, transitionMonitoring };
+  useEffect(() => {
+    // clearing inactive slides elements style, and potential stuck start position at left slide
+    const slidesWithoutRight = sliderSlidesRef.current.filter(
+      (_, slideId) => slideId !== rightSlideId,
+    );
+
+    resetSlidesStyle({
+      slides: slidesWithoutRight,
+      specificSlideId: leftSlideId,
+    });
+    // sliderSlidesRef.current[leftSlideId]?.scrollIntoView();
+  }, [prevSlideId, leftSlideId, rightSlideId, sliderSlidesRef]);
+
+  return { prevSlideId, leftSlideId, rightSlideId, transitionMonitoring };
 };

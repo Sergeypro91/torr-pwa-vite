@@ -28,6 +28,7 @@ const defineEnv = (mode: string) => {
     'process.env.BASE_API_ROUTE': JSON.stringify(env.BASE_API_ROUTE),
     'process.env.API_DOC_PATH': JSON.stringify(env.API_DOC_PATH),
     'process.env.IMAGE_API_ROUTE': JSON.stringify(env.IMAGE_API_ROUTE),
+    'process.env.TMDB_IMAGE_API': JSON.stringify(env.TMDB_IMAGE_API),
   }
 }
 

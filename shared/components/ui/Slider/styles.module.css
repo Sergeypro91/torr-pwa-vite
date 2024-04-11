@@ -11,7 +11,8 @@
 }
 
 .slide {
-  --local-transitionX: 0px;
+  --poster-width: 0px;
+  --left-start: 0px;
 
   min-width: 100vw;
   position: relative;

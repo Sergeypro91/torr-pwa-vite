@@ -1,3 +1,5 @@
-export * from './disappearingTranslateX';
+export * from './definePrevSlide';
 
-export * from './setSlideTranslateX';
+export * from './resetSlidesStyle';
+
+export * from './setSlideElemProp';
