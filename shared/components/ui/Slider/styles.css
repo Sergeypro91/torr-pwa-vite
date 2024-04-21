@@ -3,7 +3,7 @@
   top: 0;
   left: var(--left-start);
   width: var(--poster-width);
-  height: inherit;
+  height: clamp(75dvh, calc(100vw * 3/2), 100%);
   object-fit: cover;
   pointer-events: none;
   z-index: -1;

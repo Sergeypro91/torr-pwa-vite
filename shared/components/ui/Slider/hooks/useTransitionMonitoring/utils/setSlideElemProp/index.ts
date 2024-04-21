@@ -1,1 +1,0 @@
-export * from './setSlideElemProp.ts';

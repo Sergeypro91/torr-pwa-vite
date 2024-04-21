@@ -1,52 +1,51 @@
-import { PointerEvent, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { debounce } from 'lodash-es';
 
-import { TSlider } from '../Slider.tsx';
-import {
-  useAutoScroll,
-  useScrollMonitoring,
-  useTransitionMonitoring,
-} from '../hooks';
+import { TSlider } from '@torr/shared';
 
-export const useLogic = <TSlide>(props: TSlider<TSlide>) => {
+import { useStore } from '../useStore';
+import { navigateToSlide } from '../utils';
+import { IS_SCROLL_DEBOUNCE } from '../constants.ts';
+import { useAutoScroll, useLoopingSlides, useSlideTransition } from '../hooks';
+
+export const useLogic = <
+  TSlide extends Record<string, unknown> = Record<string, unknown>,
+>(
+  props: TSlider<TSlide>,
+) => {
   const { slides } = props;
-  const sliderRef = useRef<HTMLDivElement | null>(null);
-  const sliderSlidesRef = useRef<(HTMLElement | null)[]>([]);
+  const sliderRef = useRef<HTMLElement | null>(null);
+  const setIsScrolling = useStore((state) => state.setIsScrolling);
+
+  const { loopingSlides } = useLoopingSlides(sliderRef);
+
+  const { slideTransition } = useSlideTransition(sliderRef);
+
+  useAutoScroll(sliderRef);
+
   const extendedSlides = slides
     .toSpliced(0, 0, slides[slides.length - 1])
     .toSpliced(-1, 1, slides[slides.length - 1], slides[0]);
 
-  const { scrollMonitoring } = useScrollMonitoring();
+  const scrollStopDebounce = useRef(
+    debounce((scrollState: boolean) => {
+      setIsScrolling(scrollState);
+    }, IS_SCROLL_DEBOUNCE),
+  ).current;
 
-  const { leftSlideId, transitionMonitoring } = useTransitionMonitoring({
-    sliderSlidesRef,
-  });
-
-  useAutoScroll({
-    leftSlideId,
-    sliderSlidesRef,
-  });
-
-  const handleScroll = (event: PointerEvent<HTMLElement>) => {
-    const sliderElem = event.currentTarget;
-
-    if (sliderElem) {
-      scrollMonitoring(sliderElem);
-      transitionMonitoring(sliderElem);
-    }
+  const handleScroll = () => {
+    loopingSlides();
+    slideTransition(scrollStopDebounce);
+    setIsScrolling(true);
   };
 
   useEffect(() => {
-    const sliderElem = sliderRef.current;
-
-    if (sliderElem) {
-      sliderElem.children[leftSlideId].scrollIntoView();
-    }
-  }, [leftSlideId]);
+    navigateToSlide({ slideId: 1, duration: 0, sliderRef });
+  }, [sliderRef]);
 
   return {
     sliderRef,
     extendedSlides,
-    sliderSlidesRef,
     handleScroll,
   };
 };

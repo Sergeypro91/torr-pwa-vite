@@ -1,42 +1,37 @@
 import { MutableRefObject, useEffect } from 'react';
 
-const SCROLL_TIMEOUT = 6000;
-
-type TUseAutoScroll = {
-  leftSlideId: number;
-  sliderSlidesRef: MutableRefObject<(HTMLElement | null)[]>;
-};
+import { useStore } from '../../useStore';
+import { navigateToSlide } from '../../utils';
+import { SCROLL_TO_NEXT_SLIDE_TIMEOUT } from '../../constants.ts';
 
 /**
  * @description Logic that implements auto-scrolling slides
+ * @param sliderRef - Slider ref object.
+ * @
  */
-export const useAutoScroll = (options: TUseAutoScroll) => {
-  const { leftSlideId, sliderSlidesRef } = options;
-
-  const scrollToNextSlide = ({
-    nextSlideId,
-    slidesRef,
-  }: {
-    nextSlideId: number;
-    slidesRef: (HTMLElement | null)[];
-  }) => {
-    slidesRef[nextSlideId + 1]?.scrollIntoView({
-      behavior: 'smooth',
-    });
-  };
+export const useAutoScroll = (
+  sliderRef: MutableRefObject<HTMLElement | null>,
+) => {
+  const isScrolling = useStore((state) => state.isScrolling);
 
   useEffect(() => {
-    const scrollTimeout = setTimeout(
-      () =>
-        scrollToNextSlide({
-          nextSlideId: leftSlideId,
-          slidesRef: sliderSlidesRef.current,
-        }),
-      SCROLL_TIMEOUT,
-    );
+    const scrollTimeout = setTimeout(() => {
+      const sliderElem = sliderRef.current;
+
+      if (!isScrolling && sliderElem) {
+        const { width } = sliderElem.getBoundingClientRect();
+        const leftPosition = sliderElem.scrollLeft;
+        const leftSlideId = Math.round(leftPosition / width);
+
+        navigateToSlide({
+          slideId: leftSlideId + 1,
+          sliderRef,
+        });
+      }
+    }, SCROLL_TO_NEXT_SLIDE_TIMEOUT);
 
     return () => {
       clearTimeout(scrollTimeout);
     };
-  }, [leftSlideId, sliderSlidesRef]);
+  }, [sliderRef, isScrolling]);
 };

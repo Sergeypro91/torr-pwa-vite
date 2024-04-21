@@ -1,5 +1,5 @@
 export * from './useAutoScroll';
 
-export * from './useScrollMonitoring';
+export * from './useLoopingSlides';
 
-export * from './useTransitionMonitoring';
+export * from './useSlideTransition';

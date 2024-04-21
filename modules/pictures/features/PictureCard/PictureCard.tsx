@@ -21,7 +21,15 @@ export const PictureCard = (props: TPictureCard) => {
 
   return (
     <div className={style['picture-card']}>
-      {poster ? <img src={poster} alt="checker" id="background" /> : null}
+      {poster ? (
+        <img
+          src={poster}
+          alt="slide"
+          id="background"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : null}
       <span>{picture.title}</span>
     </div>
   );

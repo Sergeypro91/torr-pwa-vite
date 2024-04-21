@@ -14,9 +14,9 @@ export const PageLayoutContext = createContext<PageLayoutContextType>(
   {} as PageLayoutContextType,
 );
 
-type PageLayoutType = PropsWithChildren & {
+type PageLayoutType = PropsWithChildren<{
   withTopPadding?: boolean;
-};
+}>;
 
 export const PageLayout = (props: PageLayoutType) => {
   const { children, withTopPadding = false } = props;
