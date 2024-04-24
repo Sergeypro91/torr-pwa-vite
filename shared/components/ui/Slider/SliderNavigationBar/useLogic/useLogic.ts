@@ -1,13 +1,29 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import {
+  MouseEvent,
+  TouchEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { debounce } from 'lodash-es';
 
 import { useStore } from '../../useStore';
-import { executeMarkerBarSequentialTasks, moveMarkerInBar } from '../../utils';
+import {
+  defineMarkerBarWidth,
+  defineMarkerSlideInView,
+  moveMarkerInBar,
+  navigateToSlide,
+  scrollToMarkerSlideOnDrag,
+  setExtremeMarkersSize,
+} from '../../utils';
 import { SliderNavigationBarProps } from '../SliderNavigationBar.tsx';
 
 export const useLogic = (props: SliderNavigationBarProps) => {
-  const { slideCount, visibleMarkersCount = 9 } = props;
+  const { sliderRef, slideCount, visibleMarkersCount = 8 } = props;
   const biggestSlideId = useStore((state) => state.biggestSlideId);
+  const [isDraggable, setIsDraggable] = useState(false);
   const markerBarRef = useRef<HTMLDivElement>(null);
 
   const activeSlideId = useMemo(() => {
@@ -22,28 +38,64 @@ export const useLogic = (props: SliderNavigationBarProps) => {
     return slideCount - 1;
   }, [biggestSlideId, slideCount]);
 
+  const handleBarWrapClick = (event: MouseEvent<HTMLElement>) => {
+    const BarWrapElem = event.target as HTMLElement;
+    const BarWrapElemRect = BarWrapElem.getBoundingClientRect();
+    const clickBarWrapLeftPos = event.clientX;
+    const slideStep =
+      clickBarWrapLeftPos - BarWrapElemRect.left > BarWrapElemRect.width / 2
+        ? 1
+        : -1;
+
+    navigateToSlide({ slideId: biggestSlideId + slideStep, sliderRef });
+  };
+
+  const handleBarWrapDrag = (dragEvent: TouchEvent) => {
+    setIsDraggable(true);
+    scrollToMarkerSlideOnDrag({ sliderRef, markerBarRef, dragEvent });
+  };
+
+  const handleBarWrapDragEnd = () => {
+    setIsDraggable(false);
+  };
+
   const debouncedHandleScroll = useCallback(
     debounce(() => {
-      executeMarkerBarSequentialTasks(markerBarRef)
-        .defineMarkerSlideInView()
-        .setExtremeMarkersSize();
+      defineMarkerSlideInView(markerBarRef);
+      setExtremeMarkersSize(markerBarRef);
     }, 10),
-    [],
+    [activeSlideId, visibleMarkersCount],
   );
 
-  useEffect(() => {
-    executeMarkerBarSequentialTasks(markerBarRef)
-      .defineMarkerBarWidth(visibleMarkersCount)
-      .defineMarkerSlideInView()
-      .setExtremeMarkersSize();
-  }, [visibleMarkersCount]);
+  const updateMarkerBarOnDragEnd = () => {
+    setTimeout(() => {
+      defineMarkerSlideInView(markerBarRef);
+      setExtremeMarkersSize(markerBarRef);
+      moveMarkerInBar({ markerBarRef, activeSlideId, visibleMarkersCount });
+    }, 300);
+  };
 
   useEffect(() => {
-    moveMarkerInBar({
-      markerBarRef,
-      activeSlideId,
-    });
-  }, [activeSlideId]);
+    defineMarkerBarWidth({ markerBarRef, visibleMarkersCount });
+    moveMarkerInBar({ markerBarRef, activeSlideId, visibleMarkersCount });
+    defineMarkerSlideInView(markerBarRef);
+    setExtremeMarkersSize(markerBarRef);
+  }, [activeSlideId, visibleMarkersCount]);
 
-  return { slideCount, markerBarRef, activeSlideId, debouncedHandleScroll };
+  useEffect(() => {
+    if (!isDraggable) {
+      updateMarkerBarOnDragEnd();
+    }
+  }, [isDraggable]);
+
+  return {
+    isDraggable,
+    slideCount,
+    markerBarRef,
+    activeSlideId,
+    debouncedHandleScroll,
+    handleBarWrapDrag,
+    handleBarWrapClick,
+    handleBarWrapDragEnd,
+  };
 };

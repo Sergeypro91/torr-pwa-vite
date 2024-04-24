@@ -1,5 +1,8 @@
 .slider-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 75dvh;
   overflow: hidden;
 }
 

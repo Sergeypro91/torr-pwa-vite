@@ -1,26 +1,29 @@
-export const getMarkerBarDimensions = (markerBarElem: HTMLDivElement) => {
+type TGetMarkerBarDimensionsOptions = {
+  markerBarElem: HTMLDivElement;
+  visibleMarkersCount: number;
+};
+
+export const getMarkerBarDimensions = ({
+  markerBarElem,
+  visibleMarkersCount,
+}: TGetMarkerBarDimensionsOptions) => {
   const markerBarRect = markerBarElem.getBoundingClientRect();
   const markerSlidesElem = Array.from(markerBarElem?.children ?? []);
-  const slideCount = markerSlidesElem.length;
-  const firstMarkerRect = markerSlidesElem[0].getBoundingClientRect();
-  const secondMarkerRect = markerSlidesElem[1].getBoundingClientRect();
-  const markerSlideMinWidth = Math.min(
-    firstMarkerRect.width,
-    secondMarkerRect.width,
+  const markerSlidesElemWidth = markerSlidesElem.map(
+    (markerElem) => markerElem.getBoundingClientRect().width,
   );
-  const markerSlideMaxWidth = Math.max(
-    firstMarkerRect.width,
-    secondMarkerRect.width,
-  );
+  const markerSlideMinWidth = Math.min(...markerSlidesElemWidth);
+  const markerSlideMaxWidth = Math.max(...markerSlidesElemWidth);
   const markerSlideGap =
-    (markerBarElem.scrollWidth -
-      Array.from(markerSlidesElem).reduce((res, curr) => {
-        return res + curr.getBoundingClientRect().width;
-      }, 0)) /
-    (slideCount - 1);
+    parseInt(getComputedStyle(markerBarElem).columnGap, 10) ??
+    parseInt(getComputedStyle(markerBarElem).padding, 10);
+  const markerBarWidth =
+    markerSlideMinWidth * visibleMarkersCount +
+    markerSlideGap * (visibleMarkersCount - 1);
 
   return {
     markerBarRect,
+    markerBarWidth,
     markerSlideMinWidth,
     markerSlideMaxWidth,
     markerSlideGap,

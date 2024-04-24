@@ -5,11 +5,13 @@ import { getMarkerBarDimensions } from '../../utils';
 type TMoveMarkerInBarOptions = {
   markerBarRef: RefObject<HTMLDivElement>;
   activeSlideId: number;
+  visibleMarkersCount: number;
 };
 
 export const moveMarkerInBar = ({
   markerBarRef,
   activeSlideId,
+  visibleMarkersCount,
 }: TMoveMarkerInBarOptions) => {
   const markerBarElem = markerBarRef.current;
   const markerSlidesElem = Array.from(
@@ -22,7 +24,7 @@ export const moveMarkerInBar = ({
       markerSlideMinWidth,
       markerSlideMaxWidth,
       markerSlideGap,
-    } = getMarkerBarDimensions(markerBarElem);
+    } = getMarkerBarDimensions({ markerBarElem, visibleMarkersCount });
     const currViewedBarWidth = markerBarRect.width;
     const currActiveElemPosition =
       markerSlidesElem[activeSlideId].getBoundingClientRect().left -
@@ -49,6 +51,10 @@ export const moveMarkerInBar = ({
           markerSlideGap +
           markerSlideMinWidth +
           markerSlideGap);
+    }
+
+    if (activeSlideId === markerSlidesElem.length - 1) {
+      markerBarElem.scrollLeft = markerBarElem.scrollWidth;
     }
   }
 };

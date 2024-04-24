@@ -13,7 +13,7 @@
   /* local variable */
   --box-shadow: 2px;
 
-  width: fit-content;
+  min-width: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;

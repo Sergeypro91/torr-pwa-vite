@@ -43,7 +43,7 @@ export const Slider = <
           </article>
         ))}
       </section>
-      <SliderNavigationBar slideCount={slides.length} />
+      <SliderNavigationBar sliderRef={sliderRef} slideCount={slides.length} />
     </div>
   );
 };

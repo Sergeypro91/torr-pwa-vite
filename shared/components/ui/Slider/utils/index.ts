@@ -2,19 +2,19 @@ export * from './defineMarkerBarWidth';
 
 export * from './defineMarkerSlideInView';
 
-export * from './executeMarkerBarSequentialTasks';
-
 export * from './getMarkerBarDimensions';
 
 export * from './handleTransitionBetweenSlides';
 
 export * from './moveMarkerInBar';
 
-export * from './navigateToChildId';
+export * from './navigateToSlide';
 
 export * from './requestAnimationFrameScheduler';
 
 export * from './resetSlidesStyle';
+
+export * from './scrollToMarkerSlideOnDrag';
 
 export * from './setElemProp';
 

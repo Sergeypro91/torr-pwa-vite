@@ -1,21 +1,36 @@
 .marker-bar-wrapper {
   --local-white: var(--white);
+  --local-gray40: var(--gray40);
   --local-module: var(--module);
+  --local-marker-size: calc(var(--local-module) / 2 * 5);
+  --local-marker-gap: calc(var(--local-module) * 4);
   --local-transition: var(--transition);
   --local-marker-bar-width: 0;
   --local-marker-scale: 0;
 
-  position: absolute;
-  bottom: 0;
+  width: auto;
+  display: block;
+  justify-content: center;
   padding: calc(var(--local-module) * 2);
-  left: 50%;
-  transform: translate(-50%, 0);
+  margin: calc(var(--local-module) * 2) auto;
+  border-radius: calc(var(--local-module) * 3);
+  transition: var(--local-transition);
+  touch-action: none;
+}
+
+.draggable {
+  background-color: color-mix(in srgb, var(--local-white) 10%, transparent);
+  backdrop-filter: blur(10px);
+
+  .slide-marker--active {
+    min-width: var(--local-marker-size);
+  }
 }
 
 .marker-bar {
   display: flex;
   width: var(--local-marker-bar-width);
-  gap: calc(var(--local-module) * 3);
+  gap: var(--local-marker-gap);
   scroll-behavior: smooth;
   overflow: auto;
   pointer-events: none;
@@ -31,8 +46,8 @@
 
 .slide-marker {
   position: relative;
-  height: calc(var(--local-module) / 2 * 5);
-  min-width: calc(var(--local-module) / 2 * 5);
+  height: var(--local-marker-size);
+  min-width: var(--local-marker-size);
   opacity: var(--local-marker-scale);
   transition: var(--local-transition);
 
@@ -54,10 +69,6 @@
     transition: var(--local-transition);
     transform-origin: center center;
   }
-}
-
-.slide-marker--active {
-  min-width: calc(var(--local-module) / 2 * 5 * 2 + var(--local-module) * 3);
 
   &::after {
     content: " ";
@@ -67,7 +78,15 @@
     display: block;
     width: 100%;
     height: 100%;
-    background-color: var(--local-white);
+    transition: var(--local-transition);
     border-radius: 6px;
+  }
+}
+
+.slide-marker--active {
+  min-width: calc(var(--local-marker-size) * 2 + var(--local-marker-gap));
+
+  &::after {
+    background-color: var(--local-white);
   }
 }

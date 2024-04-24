@@ -15,12 +15,10 @@ export const defineMarkerBarWidth = ({
   const markerBarElem = markerBarRef.current;
 
   if (markerBarElem) {
-    const { markerSlideGap, markerSlideMinWidth } =
-      getMarkerBarDimensions(markerBarElem);
-
-    const markerBarWidth =
-      markerSlideMinWidth * visibleMarkersCount +
-      markerSlideGap * (visibleMarkersCount - 1);
+    const { markerBarWidth } = getMarkerBarDimensions({
+      markerBarElem,
+      visibleMarkersCount,
+    });
 
     markerBarElem.style.setProperty(
       MARKER_BAR_WIDTH_VAR_PROP,
