@@ -1,36 +1,25 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { MovieSlim, ShowSlim } from '@torr/data';
-import { getImageUrl } from '@torr/shared';
 
-import style from './styles.module.css';
+import { PicturePlayer } from '../PicturePlayer';
+import { PicturePoster } from '../PicturePoster';
+import { PictureData } from '../PictureData';
 
-export type TPictureCard = {
-  picture: MovieSlim | ShowSlim;
+export type TPictureCardProps = {
+  pictureData: MovieSlim | ShowSlim;
 };
 
-export const PictureCard = (props: TPictureCard) => {
-  const { picture } = props;
-
-  const poster = useMemo(() => {
-    const imagePath =
-      picture.purePosterPath ?? picture.pureHPosterPath ?? picture.posterPath;
-
-    return getImageUrl({ imagePath });
-  }, [picture]);
+export const PictureCard = (props: TPictureCardProps) => {
+  const { pictureData } = props;
 
   return (
-    <div className={style['picture-card']}>
-      {poster ? (
-        <img
-          src={poster}
-          alt="slide"
-          id="background"
-          loading="lazy"
-          decoding="async"
-        />
-      ) : null}
-      <span>{picture.title}</span>
-    </div>
+    <>
+      <PicturePlayer pictureData={pictureData} />
+      <PicturePoster pictureData={pictureData} />
+      <PictureData pictureData={pictureData} />
+    </>
   );
 };
+
+PictureCard.displayName = 'PictureCard';

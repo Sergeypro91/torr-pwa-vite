@@ -2,9 +2,11 @@ export const POSTER_WIDTH_VAR_PROP = '--poster-width';
 
 export const LEFT_START_VAR_PROP = '--left-start';
 
-export const MARKER_SCALE_VAR_PROP = '--local-marker-scale';
+export const MARKER_SCALE_VAR_PROP = '--marker-scale';
 
-export const MARKER_BAR_WIDTH_VAR_PROP = '--local-marker-bar-width';
+export const MARKER_BAR_WIDTH_VAR_PROP = '--marker-bar-width';
+
+export const DATA_INFO_OPACITY_VAR_PROP = '--data-info-opacity';
 
 export const SNAP_STYLE_NAME = 'scroll-snap-type';
 

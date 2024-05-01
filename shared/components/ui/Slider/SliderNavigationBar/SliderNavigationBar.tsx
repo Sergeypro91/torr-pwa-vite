@@ -10,6 +10,7 @@ import style from './styles.module.css';
 export type SliderNavigationBarProps = {
   sliderRef: MutableRefObject<HTMLElement | null>;
   slideCount: number;
+  timeoutToNext: number;
   visibleMarkersCount?: number;
 };
 
@@ -35,7 +36,7 @@ export const SliderNavigationBar = (props: SliderNavigationBarProps) => {
       onTouchMoveCapture={handleBarWrapDrag}
       onTouchEndCapture={handleBarWrapDragEnd}
     >
-      <div
+      <ul
         ref={markerBarRef}
         className={style['marker-bar']}
         onScroll={debouncedHandleScroll}
@@ -43,7 +44,7 @@ export const SliderNavigationBar = (props: SliderNavigationBarProps) => {
         {Array(slideCount)
           .fill(true)
           .map((_, slideId) => (
-            <div
+            <li
               key={`slide-marker--${slideId}`}
               className={cn([
                 style['slide-marker'],
@@ -52,7 +53,7 @@ export const SliderNavigationBar = (props: SliderNavigationBarProps) => {
               ])}
             />
           ))}
-      </div>
+      </ul>
     </div>
   );
 };

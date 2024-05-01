@@ -29,7 +29,7 @@
   padding-inline: calc(var(--local-module) * 5);
   gap: calc(var(--local-module) * 2);
   background: color-mix(in srgb, var(--local-black) 80%, transparent);
-  background: linear-gradient(0deg, transparent 0%, var(--local-black) 100%);
+  background: linear-gradient(0deg, transparent 0%, color-mix(in srgb, var(--local-black) 70%, transparent) 100%);
 }
 
 .extras{

@@ -6,7 +6,7 @@ import {
 } from '../../constants.ts';
 
 export const defineMarkerSlideInView = (
-  markerBarRef: RefObject<HTMLDivElement>,
+  markerBarRef: RefObject<HTMLUListElement>,
 ) => {
   const markerBarElem = markerBarRef.current;
   const markerSlidesElem = Array.from(
@@ -31,6 +31,4 @@ export const defineMarkerSlideInView = (
       }
     });
   }
-
-  return;
 };

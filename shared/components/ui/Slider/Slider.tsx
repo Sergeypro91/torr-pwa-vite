@@ -16,15 +16,13 @@ export const Slider = <
   props: TSlider<TSlide>,
 ) => {
   const { slides, renderItem } = props;
-  const { sliderRef, extendedSlides, handleScroll } = useLogic<TSlide>(props);
-
-  const getSlideIdName = (slideId: number) => {
-    if (slideId === 0 || slideId === extendedSlides.length - 1) {
-      return 'clone';
-    }
-
-    return undefined;
-  };
+  const {
+    sliderRef,
+    timeoutToNext,
+    extendedSlides,
+    handleScroll,
+    getSlideIdName,
+  } = useLogic<TSlide>(props);
 
   return (
     <div className={style['slider-wrapper']}>
@@ -39,11 +37,15 @@ export const Slider = <
             id={getSlideIdName(slideId)}
             className={style.slide}
           >
-            {renderItem(slide as TSlide)}
+            {renderItem(slide)}
           </article>
         ))}
       </section>
-      <SliderNavigationBar sliderRef={sliderRef} slideCount={slides.length} />
+      <SliderNavigationBar
+        sliderRef={sliderRef}
+        slideCount={slides.length}
+        timeoutToNext={timeoutToNext}
+      />
     </div>
   );
 };

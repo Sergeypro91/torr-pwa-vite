@@ -17,14 +17,20 @@ import {
   navigateToSlide,
   scrollToMarkerSlideOnDrag,
   setExtremeMarkersSize,
+  setTimeoutToNext,
 } from '../../utils';
 import { SliderNavigationBarProps } from '../SliderNavigationBar.tsx';
 
 export const useLogic = (props: SliderNavigationBarProps) => {
-  const { sliderRef, slideCount, visibleMarkersCount = 8 } = props;
+  const {
+    sliderRef,
+    slideCount,
+    visibleMarkersCount = 8,
+    timeoutToNext,
+  } = props;
   const biggestSlideId = useStore((state) => state.biggestSlideId);
   const [isDraggable, setIsDraggable] = useState(false);
-  const markerBarRef = useRef<HTMLDivElement>(null);
+  const markerBarRef = useRef<HTMLUListElement>(null);
 
   const activeSlideId = useMemo(() => {
     if (!biggestSlideId) {
@@ -78,9 +84,10 @@ export const useLogic = (props: SliderNavigationBarProps) => {
   useEffect(() => {
     defineMarkerBarWidth({ markerBarRef, visibleMarkersCount });
     moveMarkerInBar({ markerBarRef, activeSlideId, visibleMarkersCount });
+    setTimeoutToNext({ markerBarRef, timeoutToNext });
     defineMarkerSlideInView(markerBarRef);
     setExtremeMarkersSize(markerBarRef);
-  }, [activeSlideId, visibleMarkersCount]);
+  }, [activeSlideId, visibleMarkersCount, timeoutToNext]);
 
   useEffect(() => {
     if (!isDraggable) {

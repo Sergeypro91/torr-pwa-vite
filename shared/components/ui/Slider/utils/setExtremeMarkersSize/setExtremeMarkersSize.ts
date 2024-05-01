@@ -1,6 +1,7 @@
 import { RefObject } from 'react';
 
-import { setElemProp } from '../../utils';
+import { setElemProp } from '@torr/shared';
+
 import {
   MARKER_SCALE_VAR_PROP,
   MARKER_SLIDE_ID_SELECTOR,
@@ -8,7 +9,7 @@ import {
 } from '../../constants.ts';
 
 export const setExtremeMarkersSize = (
-  markerBarRef: RefObject<HTMLDivElement>,
+  markerBarRef: RefObject<HTMLUListElement>,
 ) => {
   const markerBarElem = markerBarRef.current;
   const markerSlidesElem = Array.from(markerBarElem?.children ?? []);

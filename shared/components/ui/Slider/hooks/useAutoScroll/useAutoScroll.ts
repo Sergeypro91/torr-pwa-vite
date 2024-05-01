@@ -34,4 +34,6 @@ export const useAutoScroll = (
       clearTimeout(scrollTimeout);
     };
   }, [sliderRef, isScrolling]);
+
+  return { timeoutToNext: SCROLL_TO_NEXT_SLIDE_TIMEOUT };
 };

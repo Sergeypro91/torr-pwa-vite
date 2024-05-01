@@ -2,11 +2,12 @@
   --local-white: var(--white);
   --local-gray40: var(--gray40);
   --local-module: var(--module);
-  --local-marker-size: calc(var(--local-module) / 2 * 5);
-  --local-marker-gap: calc(var(--local-module) * 4);
   --local-transition: var(--transition);
-  --local-marker-bar-width: 0;
-  --local-marker-scale: 0;
+  --marker-size: calc(var(--local-module) / 2 * 5);
+  --marker-gap: calc(var(--local-module) * 4);
+  --marker-bar-width: 0;
+  --marker-scale: 0;
+  --timeout-to-next: 0ms;
 
   width: auto;
   display: block;
@@ -23,14 +24,14 @@
   backdrop-filter: blur(10px);
 
   .slide-marker--active {
-    min-width: var(--local-marker-size);
+    min-width: var(--marker-size);
   }
 }
 
 .marker-bar {
   display: flex;
-  width: var(--local-marker-bar-width);
-  gap: var(--local-marker-gap);
+  width: var(--marker-bar-width);
+  gap: var(--marker-gap);
   scroll-behavior: smooth;
   overflow: auto;
   pointer-events: none;
@@ -46,9 +47,9 @@
 
 .slide-marker {
   position: relative;
-  height: var(--local-marker-size);
-  min-width: var(--local-marker-size);
-  opacity: var(--local-marker-scale);
+  height: var(--marker-size);
+  min-width: var(--marker-size);
+  opacity: var(--marker-scale);
   transition: var(--local-transition);
 
   &::before {
@@ -62,9 +63,9 @@
     background-color: color-mix(in srgb, var(--local-white) 50%, transparent);
     border-radius: 6px;
     transform: scale3d(
-      var(--local-marker-scale),
-      var(--local-marker-scale),
-      var(--local-marker-scale)
+      var(--marker-scale),
+      var(--marker-scale),
+      var(--marker-scale)
     );
     transition: var(--local-transition);
     transform-origin: center center;
@@ -77,6 +78,7 @@
     left: 0;
     display: block;
     width: 100%;
+    min-width: var(--marker-size);
     height: 100%;
     transition: var(--local-transition);
     border-radius: 6px;
@@ -84,9 +86,19 @@
 }
 
 .slide-marker--active {
-  min-width: calc(var(--local-marker-size) * 2 + var(--local-marker-gap));
+  min-width: calc(var(--marker-size) * 2 + var(--marker-gap));
 
   &::after {
     background-color: var(--local-white);
+    animation: timeoutToNext var(--timeout-to-next) linear;
+  }
+}
+
+@keyframes timeoutToNext {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
   }
 }

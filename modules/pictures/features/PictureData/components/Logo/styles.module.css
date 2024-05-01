@@ -1,0 +1,14 @@
+.logo {
+  --local-black: var(--black);
+  --local-module: var(--module);
+  --local-h3-fs: var(--h2-fs);
+  --local-h3-lh: var(--h2-lh);
+
+  width: 100%;
+  max-height: 100px;
+  object-fit: contain;
+  font-size: var(--local-h3-fs);
+  line-height: normal;
+  font-weight: 700;
+  filter: drop-shadow(0 0 var(--local-module) var(--local-black));
+}

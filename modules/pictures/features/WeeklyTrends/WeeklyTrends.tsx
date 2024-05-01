@@ -18,7 +18,7 @@ export const WeeklyTrends = () => {
     <Slider
       slides={weeklyTrends}
       renderItem={(slide: MovieSlim | ShowSlim) => (
-        <PictureCard picture={slide} />
+        <PictureCard pictureData={slide} />
       )}
     />
   );

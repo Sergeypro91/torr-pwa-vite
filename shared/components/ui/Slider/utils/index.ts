@@ -16,8 +16,8 @@ export * from './resetSlidesStyle';
 
 export * from './scrollToMarkerSlideOnDrag';
 
-export * from './setElemProp';
-
 export * from './setExtremeMarkersSize';
+
+export * from './setTimeoutToNext';
 
 export * from './togglingSnap';

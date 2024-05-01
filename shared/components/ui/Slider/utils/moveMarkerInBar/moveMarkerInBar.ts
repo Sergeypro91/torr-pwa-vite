@@ -3,7 +3,7 @@ import { RefObject } from 'react';
 import { getMarkerBarDimensions } from '../../utils';
 
 type TMoveMarkerInBarOptions = {
-  markerBarRef: RefObject<HTMLDivElement>;
+  markerBarRef: RefObject<HTMLUListElement>;
   activeSlideId: number;
   visibleMarkersCount: number;
 };

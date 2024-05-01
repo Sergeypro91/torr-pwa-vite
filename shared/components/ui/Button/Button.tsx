@@ -1,6 +1,6 @@
 import React, { ElementRef, MouseEvent, forwardRef, useState } from 'react';
 
-import { cn } from '../../utils';
+import { cn } from '../../../utils';
 
 import { TButton } from './types.ts';
 import { defineButtonStyle } from './utils';

@@ -1,5 +1,5 @@
 type TGetMarkerBarDimensionsOptions = {
-  markerBarElem: HTMLDivElement;
+  markerBarElem: HTMLUListElement;
   visibleMarkersCount: number;
 };
 

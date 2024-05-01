@@ -1,5 +1,10 @@
-import { setElemProp } from '../setElemProp';
-import { LEFT_START_VAR_PROP, POSTER_WIDTH_VAR_PROP } from '../../constants.ts';
+import { setElemProp } from '@torr/shared';
+
+import {
+  DATA_INFO_OPACITY_VAR_PROP,
+  LEFT_START_VAR_PROP,
+  POSTER_WIDTH_VAR_PROP,
+} from '../../constants.ts';
 
 type THandleTransitionBetweenSlides = {
   sliderElem: HTMLElement;
@@ -45,9 +50,21 @@ export const handleTransitionBetweenSlides = ({
   });
 
   setElemProp({
+    element: leftSlideElem,
+    propName: DATA_INFO_OPACITY_VAR_PROP,
+    propValue: ((slideWidth + xShift) / slideWidth).toFixed(2),
+  });
+
+  setElemProp({
     element: rightSlideElem,
     propName: POSTER_WIDTH_VAR_PROP,
     propValue: `${xShift * -1}px`,
+  });
+
+  setElemProp({
+    element: rightSlideElem,
+    propName: DATA_INFO_OPACITY_VAR_PROP,
+    propValue: ((xShift * -1) / slideWidth).toFixed(2),
   });
 
   setElemProp({

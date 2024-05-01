@@ -1,1 +1,1 @@
-export { PictureCard, PictureSlider, WeeklyTrends } from './features';
+export { PictureCard, WeeklyTrends } from './features';

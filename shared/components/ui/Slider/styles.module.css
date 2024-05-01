@@ -1,12 +1,17 @@
 .slider-wrapper {
+  --local-black: var(--black);
+
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 75dvh;
+  height: clamp(75dvh, calc(100vw * 3/2), 100dvh);
+  background: linear-gradient(180deg, transparent 70%, color-mix(in srgb, var(--local-black) 70%, transparent) 100%);
   overflow: hidden;
+
 }
 
 .slider {
+  height: 100%;
   position: relative;
   display: flex;
   overflow: scroll;
@@ -24,10 +29,16 @@
 .slide {
   --poster-width: 0px;
   --left-start: 0px;
+  --data-info-opacity: 0;
 
   min-width: 100vw;
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   scroll-snap-align: center;
   scroll-snap-stop: always;
 }
+
+
+

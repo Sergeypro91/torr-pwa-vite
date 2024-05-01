@@ -21,7 +21,7 @@ export const useLogic = <
 
   const { slideTransition } = useSlideTransition(sliderRef);
 
-  useAutoScroll(sliderRef);
+  // const { timeoutToNext } = useAutoScroll(sliderRef);
 
   const extendedSlides = slides
     .toSpliced(0, 0, slides[slides.length - 1])
@@ -39,13 +39,23 @@ export const useLogic = <
     setIsScrolling(true);
   };
 
+  const getSlideIdName = (slideId: number) => {
+    if (slideId === 0 || slideId === extendedSlides.length - 1) {
+      return 'clone';
+    }
+
+    return undefined;
+  };
+
   useEffect(() => {
     navigateToSlide({ slideId: 1, duration: 0, sliderRef });
   }, [sliderRef]);
 
   return {
     sliderRef,
+    // timeoutToNext,
     extendedSlides,
     handleScroll,
+    getSlideIdName,
   };
 };

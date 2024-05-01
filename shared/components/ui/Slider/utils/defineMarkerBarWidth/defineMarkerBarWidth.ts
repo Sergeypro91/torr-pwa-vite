@@ -4,7 +4,7 @@ import { MARKER_BAR_WIDTH_VAR_PROP } from '../../constants.ts';
 import { getMarkerBarDimensions } from '../getMarkerBarDimensions';
 
 type TDefineMarkerBarWidthOptions = {
-  markerBarRef: RefObject<HTMLDivElement>;
+  markerBarRef: RefObject<HTMLUListElement>;
   visibleMarkersCount: number;
 };
 
